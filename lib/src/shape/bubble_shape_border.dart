@@ -316,13 +316,13 @@ class BubbleShapeBorder extends ShapeBorder {
       double p = _getTopBottomPosition(size);
 
       path.lineTo(
-          p + arrowAngle - rightMargin + smooth, size.height - bottomMargin);
+          p + 0 - rightMargin + smooth, size.height - bottomMargin);
 
       var x = arrowAngle * arrowQuadraticBezierLength / ah;
 
       // path.lineTo(p + x - rightMargin, size.height - arrowQuadraticBezierLength);
       path.quadraticBezierTo(
-          p + arrowAngle - rightMargin - smooth,
+          p + 0 - rightMargin - smooth,
           size.height - bottomMargin,
           p + x - rightMargin,
           size.height - arrowQuadraticBezierLength);
