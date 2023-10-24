@@ -123,6 +123,11 @@ class BubbleBoxBorder {
   }
 }
 
+enum BubbleArrowType {
+  full,
+  half,
+}
+
 /// 气泡边框渲染
 class BubbleShapeBorder extends ShapeBorder {
   /// 气泡的方向
@@ -133,6 +138,8 @@ class BubbleShapeBorder extends ShapeBorder {
 
   /// 气泡尖角底部长度
   final double arrowAngle;
+
+  final BubbleArrowType arrowType;
 
   /// 气泡尖角钝角长度
   final double arrowQuadraticBezierLength;
@@ -153,6 +160,7 @@ class BubbleShapeBorder extends ShapeBorder {
     this.direction = BubbleDirection.none,
     this.arrowAngle = 6,
     this.arrowHeight = 6,
+    this.arrowType = BubbleArrowType.full,
     this.position = const BubblePosition.center(0),
     this.border,
     this.arrowQuadraticBezierLength = 0,
@@ -315,14 +323,19 @@ class BubbleShapeBorder extends ShapeBorder {
     if (direction == BubbleDirection.bottom) {
       double p = _getTopBottomPosition(size);
 
+      final rightArrowAngle = (arrowType == BubbleArrowType.half && position.end != null)
+          ? 0 : arrowAngle;
+      final leftArrowAngle = (arrowType == BubbleArrowType.half && position.start != null)
+          ? 0 : arrowAngle;
+
       path.lineTo(
-          p + 0 - rightMargin + smooth, size.height - bottomMargin);
+          p + rightArrowAngle - rightMargin + smooth, size.height - bottomMargin);
 
       var x = arrowAngle * arrowQuadraticBezierLength / ah;
 
       // path.lineTo(p + x - rightMargin, size.height - arrowQuadraticBezierLength);
       path.quadraticBezierTo(
-          p + 0 - rightMargin - smooth,
+          p + rightArrowAngle - rightMargin - smooth,
           size.height - bottomMargin,
           p + x - rightMargin,
           size.height - arrowQuadraticBezierLength);
@@ -332,9 +345,9 @@ class BubbleShapeBorder extends ShapeBorder {
 
       // path.lineTo(p - arrowAngle - rightMargin, size.height - bottomMargin);
       path.quadraticBezierTo(
-          p - arrowAngle - rightMargin + smooth,
+          p - leftArrowAngle - rightMargin + smooth,
           size.height - bottomMargin,
-          p - arrowAngle - rightMargin - smooth,
+          p - leftArrowAngle - rightMargin - smooth,
           size.height - bottomMargin);
     }
 
