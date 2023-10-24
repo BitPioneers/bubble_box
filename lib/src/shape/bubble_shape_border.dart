@@ -288,19 +288,24 @@ class BubbleShapeBorder extends ShapeBorder {
     if (direction == BubbleDirection.right) {
       double p = _getLeftRightPosition(size);
 
-      path.lineTo(size.width - rightMargin, p - arrowAngle - smooth);
+      final bottomArrowAngle = (arrowType == BubbleArrowType.half && position.end != null)
+          ? 0 : arrowAngle;
+      final topArrowAngle = (arrowType == BubbleArrowType.half && position.start != null)
+          ? 0 : arrowAngle;
+
+      path.lineTo(size.width - rightMargin, p - bottomArrowAngle - smooth);
 
       var x = ah * arrowQuadraticBezierLength / arrowAngle;
 
-      path.quadraticBezierTo(size.width - rightMargin, p - arrowAngle + smooth,
+      path.quadraticBezierTo(size.width - rightMargin, p - bottomArrowAngle + smooth,
           size.width - arrowQuadraticBezierLength, p - x);
       // path.lineTo(size.width - arrowQuadraticBezierLength, p - x);
 
       path.quadraticBezierTo(
           size.width, p, size.width - arrowQuadraticBezierLength, p + x);
 
-      path.quadraticBezierTo(size.width - rightMargin, p + arrowAngle - smooth,
-          size.width - rightMargin, p + arrowAngle + smooth);
+      path.quadraticBezierTo(size.width - rightMargin, p + topArrowAngle - smooth,
+          size.width - rightMargin, p + topArrowAngle + smooth);
       // path.lineTo(size.width - rightMargin, p + arrowAngle);
     }
 
@@ -378,18 +383,24 @@ class BubbleShapeBorder extends ShapeBorder {
     /// 左尖角
     if (direction == BubbleDirection.left) {
       double p = _getLeftRightPosition(size);
-      path.lineTo(leftMargin, p + arrowAngle + smooth);
+
+      final bottomArrowAngle = (arrowType == BubbleArrowType.half && position.end != null)
+          ? 0 : arrowAngle;
+      final topArrowAngle = (arrowType == BubbleArrowType.half && position.start != null)
+          ? 0 : arrowAngle;
+
+      path.lineTo(leftMargin, p + bottomArrowAngle + smooth);
       var x = ah * arrowQuadraticBezierLength / arrowAngle;
 
-      path.quadraticBezierTo(leftMargin, p + arrowAngle - smooth,
+      path.quadraticBezierTo(leftMargin, p + bottomArrowAngle - smooth,
           arrowQuadraticBezierLength, p + x);
       // path.lineTo(arrowQuadraticBezierLength, p + x);
 
       path.quadraticBezierTo(0, p, arrowQuadraticBezierLength, p - x);
 
       // path.lineTo(leftMargin, p - arrowAngle);
-      path.quadraticBezierTo(leftMargin, p - arrowAngle + smooth, leftMargin,
-          p - arrowAngle - smooth);
+      path.quadraticBezierTo(leftMargin, p - topArrowAngle + smooth, leftMargin,
+          p - topArrowAngle - smooth);
     }
 
     /// 收尾
