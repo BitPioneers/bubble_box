@@ -288,9 +288,9 @@ class BubbleShapeBorder extends ShapeBorder {
     if (direction == BubbleDirection.right) {
       double p = _getLeftRightPosition(size);
 
-      final bottomArrowAngle = (arrowType == BubbleArrowType.half && position.end != null)
+      final topArrowAngle = (arrowType == BubbleArrowType.half && position.end != null)
           ? 0 : arrowAngle;
-      final topArrowAngle = (arrowType == BubbleArrowType.half && position.start != null)
+      final bottomArrowAngle = (arrowType == BubbleArrowType.half && position.start != null)
           ? 0 : arrowAngle;
 
       path.lineTo(size.width - rightMargin, p - bottomArrowAngle - smooth);
